@@ -15,14 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
   priceStandart.innerHTML = selectSeanse.priceStandart;
 
   getRequest(bodyRequest, (response) => {
-    console.log(response)
     if (response) {
       selectSeanse.hallConfig = response;
     }
     confStepWrapper.innerHTML = selectSeanse.hallConfig;
     
     let chairs = Array.from(document.querySelectorAll('.conf-step__row .conf-step__chair'));
-    buttonAcceptin.setAttribute("disabled", true);
     
     chairs.forEach((chair) => {
       chair.addEventListener('click', (event) => {
@@ -31,11 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
         event.target.classList.toggle('conf-step__chair_selected');
         let chairsSelected = Array.from(document.querySelectorAll('.conf-step__row .conf-step__chair_selected'));
-        if (chairsSelected.length > 0) {
-          buttonAcceptin.removeAttribute("disabled");
-        } else {
-          buttonAcceptin.setAttribute("disabled", true);
-        };
       });
     });
   });

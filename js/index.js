@@ -1,16 +1,14 @@
-let bodyRequest = "event=update";
-
 document.addEventListener("DOMContentLoaded", () => {
   let dayNumber = document.querySelectorAll(".page-nav__day-number");
   let dayWeek = document.querySelectorAll(".page-nav__day-week");
-  let dayWeekList = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+  let week = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
   let today = new Date();
   today.setHours(0, 0, 0);
   for (let i = 0; i < dayNumber.length; i++) {
     let day = new Date(today.getTime() + (i * 24 * 60 * 60 * 1000));
     let timestamp = Math.trunc(day/1000);
     dayNumber[i].innerHTML = `${day.getDate()},`;
-    dayWeek[i].innerHTML = `${dayWeekList[day.getDay()]}`;
+    dayWeek[i].innerHTML = `${week[day.getDay()]}`;
     let link = dayNumber[i].parentNode
     link.dataset.timeStamp = timestamp;
     if ((dayWeek[i].innerHTML == 'Вс') || (dayWeek[i].innerHTML == 'Сб')) {
@@ -20,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   };
 
+  let bodyRequest = "event=update";
   getRequest(bodyRequest, (response) => {
     let obj = {};
     obj.seances = response.seances.result; 
@@ -78,11 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector(".page-nav__day_chosen").classList.remove("page-nav__day_chosen");
 			dayLink.classList.add("page-nav__day_chosen");
       
-      let timeStampDay = Number(event.target.dataset.timeStamp);
-      if (isNaN(timeStampDay)) {
-        timeStampDay = Number(event.target.closest('.page-nav__day').dataset.timeStamp);
-      };
-
       movieSeances.forEach(movieSeance => {
         let timeStampSeanceDay = Number(movieSeance.dataset.seanceStart) * 60;
         let timeStampSeance = timeStampDay + timeStampSeanceDay;
