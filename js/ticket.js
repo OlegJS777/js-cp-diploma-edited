@@ -29,5 +29,6 @@ document.addEventListener("DOMContentLoaded", function() {
   Билет действителен строго на свой сеанс`;
 
   let qrcode = QRCreator(textQR, { image: "SVG"	});
+  qrcode.download();
   document.querySelector(".ticket__info-qr").append(qrcode.result);
 });   
