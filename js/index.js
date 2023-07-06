@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
       link.classList.remove('page-nav__day_weekend');
     };
   };
-
   let bodyReq = "event=update";
   getRequest(bodyReq, (response) => {
     let obj = {};
