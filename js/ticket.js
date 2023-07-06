@@ -28,6 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
   Начало сеанса: ${selectSeanse.seanceTime}
   Билет действителен строго на свой сеанс`;
 
-  let qrcode = QRCreator(textQR, { image: "SVG"	});
-  document.querySelector(".ticket__info-qr").append(qrcode.result);
+  let qrcod = QRCreator(textQR, { image: "SVG"	});
+  document.querySelector(".ticket__info-qr").append(qrcod.result);
 });   

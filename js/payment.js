@@ -18,7 +18,7 @@ document.querySelector(".ticket__cost").innerHTML = price;
 
 let newHallConfig = selectSeanse.hallConfig.replace(/selected/g, "taken");
 console.log(newHallConfig);
-let bodyRequest = `event=sale_add&timestamp=${selectSeanse.seanceTimeStamp}&hallId=${selectSeanse.hallId}&seanceId=${selectSeanse.seanceId}&hallConfiguration=${newHallConfig}`;
+let bodyReques = `event=sale_add&timestamp=${selectSeanse.seanceTimeStamp}&hallId=${selectSeanse.hallId}&seanceId=${selectSeanse.seanceId}&hallConfiguration=${newHallConfig}`;
 
 document.querySelector(".acceptin-button").addEventListener("click", (event) => {
 	event.preventDefault();
@@ -26,7 +26,7 @@ document.querySelector(".acceptin-button").addEventListener("click", (event) => 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", "https://jscp-diplom.netoserver.ru/", true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.send(bodyRequest);
+	xhr.send(bodyReques);
 
 	xhr.onload = function () {
 		if (xhr.status != 200) {
