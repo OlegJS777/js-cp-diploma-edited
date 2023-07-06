@@ -18,8 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   };
 
-  let bodyRequest = "event=update";
-  getRequest(bodyRequest, (response) => {
+  let bodyReq = "event=update";
+  getRequest(bodyReq, (response) => {
     let obj = {};
     obj.seances = response.seances.result; 
     obj.films = response.films.result;
@@ -68,15 +68,20 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     });
 
-    let dayLinks = Array.from(document.querySelectorAll(".page-nav__day"));
+    let navDay = Array.from(document.querySelectorAll(".page-nav__day"));
 		let movieSeances = Array.from(document.querySelectorAll(".movie-seances__time"));
     
-    dayLinks.forEach(dayLink => dayLink.addEventListener('click', (event) => {
+    navDay.forEach(dayLink => dayLink.addEventListener('click', (event) => {
       event.preventDefault();
       
       document.querySelector(".page-nav__day_chosen").classList.remove("page-nav__day_chosen");
 			dayLink.classList.add("page-nav__day_chosen");
       
+      let timeStampDay = Number(event.target.dataset.timeStamp);
+      if (isNaN(timeStampDay)) {
+        timeStampDay = Number(event.target.closest('.page-nav__day').dataset.timeStamp);
+      };
+
       movieSeances.forEach(movieSeance => {
         let timeStampSeanceDay = Number(movieSeance.dataset.seanceStart) * 60;
         let timeStampSeance = timeStampDay + timeStampSeanceDay;
@@ -90,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }));
     
-    dayLinks[0].click();
+    navDay[0].click();
     
     movieSeances.forEach(movieSeance => movieSeance.addEventListener('click', (event) => {
       let selectSeanse = event.target.dataset;

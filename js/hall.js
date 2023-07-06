@@ -2,16 +2,18 @@ let selectSeanse = JSON.parse(sessionStorage.selectSeanse);
 let bodyRequest = `event=get_hallConfig&timestamp=${selectSeanse.seanceTimeStamp}&hallId=${selectSeanse.hallId}&seanceId=${selectSeanse.seanceId}`;
 
 document.addEventListener("DOMContentLoaded", () => {
-  let buttonAcceptin = document.querySelector('.acceptin-button');
+
+  let buyingInfoHall = document.querySelector('.buying__info-hall');
   let buyingInfoTitle = document.querySelector('.buying__info-title');
   let buyingInfoStart = document.querySelector('.buying__info-start');
-  let buyingInfoHall = document.querySelector('.buying__info-hall');
   let priceStandart = document.querySelector('.price-standart');
   let confStepWrapper = document.querySelector('.conf-step__wrapper');
-
+  let acceptinButton = document.querySelector('.acceptin-button');
+  
+  buyingInfoHall.innerHTML = selectSeanse.hallName;
   buyingInfoTitle.innerHTML = selectSeanse.filmName;
   buyingInfoStart.innerHTML = `Начало сеанса ${selectSeanse.seanceTime}`;
-  buyingInfoHall.innerHTML = selectSeanse.hallName;
+  
   priceStandart.innerHTML = selectSeanse.priceStandart;
 
   getRequest(bodyRequest, (response) => {
@@ -33,10 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
   
-  buttonAcceptin.addEventListener("click", (event) => {
+  acceptinButton.addEventListener("click", (event) => {
     event.preventDefault();
     
-    let selectedPlaces = Array();
+    let selectPlaces = Array();
     let rows = Array.from(document.getElementsByClassName("conf-step__row"));
     
     for (let i = 0; i < rows.length; i++) {
@@ -44,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
       for (let j = 0; j < spanPlaces.length; j++) {
         if (spanPlaces[j].classList.contains("conf-step__chair_selected")) {
           let typePlace = (spanPlaces[j].classList.contains("conf-step__chair_standart")) ? "standart" : "vip";
-          selectedPlaces.push({
+          selectPlaces.push({
             "row": i+1,
             "place": j+1,
             "type":  typePlace,
@@ -55,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     let configurationHall = document.querySelector('.conf-step__wrapper').innerHTML;
     selectSeanse.hallConfig = configurationHall;
-    selectSeanse.salesPlaces = selectedPlaces;
+    selectSeanse.salesPlaces = selectPlaces;
     
     sessionStorage.setItem('selectSeanse', JSON.stringify(selectSeanse));
     
